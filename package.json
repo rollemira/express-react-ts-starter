@@ -5,7 +5,7 @@
   "main": "app.js",
   "private": true,
   "scripts": {
-    "build": "grunt clean&&cd client&&node scripts/build.js&&cd..&&grunt deploy",
+    "build": "grunt&&cd client&&node scripts/build.js",
     "start": "concurrently \"yarn run server\" \"yarn run client\"",
     "server": "babel-node ./www.js",
     "client": "babel-node start-client.js"

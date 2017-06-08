@@ -38,9 +38,9 @@ export class ExpressServer {
         let router: express.Router = express.Router();
 
         //let client do routing
-        router.get("*", (req: express.Request, res: express.Response) => {
-            res.sendFile(path.join(__dirname, "index.html"));
-        });
+        // router.get("*", (req: express.Request, res: express.Response) => {
+        //     res.sendFile(path.join(__dirname, "public/index.html"));
+        // });
     }
 
     public configure() {
@@ -52,7 +52,7 @@ export class ExpressServer {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.use(cookieParser());
-        this.app.use(express.static(path.join(__dirname, "static")));
+        this.app.use(express.static(path.join(__dirname, "public")));
 
         // catch 404 and forward to error handler
         //this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
