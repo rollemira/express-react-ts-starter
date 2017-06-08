@@ -13,6 +13,7 @@
 .vscode
 .idea
 .DS_Store
+.tscache
 *.baseDir.ts
 .env.local
 .env.development.local
