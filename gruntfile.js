@@ -14,7 +14,9 @@ module.exports = function (grunt) {
                             "./**/*.json",
                             "!./*gruntfile.js",
                             "!./*start-client.js",
+                            "!./*typings.json",
                             "!./client/**",
+                            "!./typings/**",
                             "!./node_modules/**"
                         ],
                         dest: "./build"
@@ -29,6 +31,7 @@ module.exports = function (grunt) {
                         "./**/*.ts",
                         "!.baseDir.ts",
                         "!./client/**",
+                        "!./typings/**",
                         "!./node_modules/**"
                     ],
                     dest: "./build"

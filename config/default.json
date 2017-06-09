@@ -1,5 +1,8 @@
 {
   "server": {
     "development": false
+  },
+  "database": {
+    "connection": "mongodb://localhost:27017/reactexpress"
   }
 }
