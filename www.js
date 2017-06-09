@@ -5,9 +5,6 @@ var config = require('config');
 /**
  * Module dependencies.
  */
-//module dependencies
-var env = process.env.NODE_ENV || 'development';
-
 var server = (config.get('server.development')) ?
     require('./build/app') :
     require('./app');
