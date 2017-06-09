@@ -6,9 +6,10 @@ import * as logger from 'morgan';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
 import * as config from 'config';
+import * as mongoose from 'mongoose';
 
 //routes
-import {TestRoutes} from './routes/test';
+import {TodoRoutes} from './routes/todo';
 
 export class ExpressServer {
     public app: express.Application;
@@ -28,7 +29,7 @@ export class ExpressServer {
 
     public api(router: express.Router) {
         //custom api routes
-        TestRoutes(router);
+        TodoRoutes(router);
 
         //under /api segment
         this.app.use('/api', router);
@@ -53,6 +54,21 @@ export class ExpressServer {
         this.app.use(cookieParser());
         this.app.use(express.static(path.join(__dirname, 'public')));
 
+        //use q promises
+        global.Promise = require('q').Promise;
+        mongoose.Promise = global.Promise;
+
+        //connect to mongoose
+        const connection = config.get('database.connection');
+        mongoose.connect(connection);
+        mongoose.connection.on('connected', () => {
+            if (config.get('server.development'))
+                console.log('Connected to database ' + connection);
+        });
+        mongoose.connection.on('error', (err) => {
+            console.log('Database error ' + err);
+        });
+
         // catch 404 and forward to error handler
         this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
            err.status = 404;
@@ -64,7 +80,7 @@ export class ExpressServer {
             // set locals, only providing error in development
             res.locals.message = err.message;
             //noinspection TypeScriptValidateJSTypes
-            res.locals.error = req.app.get('env') === 'development' ? err : {};
+            res.locals.error = (config.get('server.development')) ? err : {};
 
             // render the error page
             res.status(err.status || 500);
