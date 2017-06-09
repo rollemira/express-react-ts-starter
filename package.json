@@ -10,7 +10,7 @@
     "start": "concurrently \"yarn run server\" \"yarn run client\"",
     "server": "nodemon ./www.js",
     "client": "babel-node start-client.js",
-    "preprod": "set NODE_ENV=development&&yarn run build&&cd build&&nodemon ./www.js"
+    "preprod": "set NODE_ENV=preproduction&&yarn run build&&cd build&&nodemon ./www.js"
   },
   "license": "MIT",
   "dependencies": {
