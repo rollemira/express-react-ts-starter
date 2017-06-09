@@ -1,6 +1,7 @@
 {
   "server": {
-    "development": false
+    "development": false,
+    "port": 3030
   },
   "database": {
     "connection": "mongodb://localhost:27017/reactexpress"
