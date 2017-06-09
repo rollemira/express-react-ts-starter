@@ -15,18 +15,17 @@ export class ExpressServer {
 
     constructor() {
         this.app = express();
+        let router: express.Router = express.Router();
         this.configure();
-        this.api();
-        this.client();
+        this.api(router);
+        this.client(router);
     }
 
     public static bootstrap(): ExpressServer {
         return new ExpressServer();
     }
 
-    public api() {
-        let router: express.Router = express.Router();
-
+    public api(router: express.Router) {
         //custom api routes
         TestRoutes(router);
 
@@ -34,31 +33,29 @@ export class ExpressServer {
         this.app.use("/api", router);
     }
 
-    public client() {
-        let router: express.Router = express.Router();
-
+    public client(router: express.Router) {
         //let client do routing
-        // router.get("*", (req: express.Request, res: express.Response) => {
-        //     res.sendFile(path.join(__dirname, "public/index.html"));
-        // });
+        router.get("*", (req: express.Request, res: express.Response) => {
+            res.sendFile(path.join(__dirname, "public/index.html"));
+        });
     }
 
     public configure() {
         if (this.env === "development")
             this.app.use(cors());
         this.app.use(helmet());
-        //noinspection TypeScriptValidateTypes
-        this.app.use(logger("dev"));
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.use(cookieParser());
         this.app.use(express.static(path.join(__dirname, "public")));
+        //noinspection TypeScriptValidateTypes
+        this.app.use(logger("dev"));
 
         // catch 404 and forward to error handler
-        //this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-        //    err.status = 404;
-        //    next(err);
-        //});
+        this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+           err.status = 404;
+           next(err);
+        });
 
         // error handler
         this.app.use((err, req, res, next) => {

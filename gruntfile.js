@@ -51,9 +51,18 @@ module.exports = function (grunt) {
                 ],
                 tasks: ["ts"]
             }
+        },
+        mochaTest: {
+            test: {
+                options: {
+                    reporter: "spec"
+                }
+            },
+            src: ["./build/test/**/*.js"]
         }
     });
 
+    grunt.loadNpmTasks("grunt-mocha-test")
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-contrib-clean");
@@ -65,9 +74,9 @@ module.exports = function (grunt) {
         "ts"
     ]);
 
-    grunt.registerTask("deploy", [
-        "copy",
-        "ts"
+    grunt.registerTask("test", [
+        "default",
+        "mochaTest"
     ]);
 
 };
