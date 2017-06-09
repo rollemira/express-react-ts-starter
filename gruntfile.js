@@ -1,5 +1,11 @@
 module.exports = function (grunt) {
-    "use strict";
+    'use strict';
+
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-ts');
+    grunt.loadNpmTasks('grunt-mocha-test');
 
     grunt.initConfig({
         copy: {
@@ -7,19 +13,14 @@ module.exports = function (grunt) {
                 files: [
                     {//copy files
                         expand: true,
-                        cwd: "./",
+                        cwd: './',
                         src: [
-                            "./**/*.js",
-                            "./**/*.config",
-                            "./**/*.json",
-                            "!./*gruntfile.js",
-                            "!./*start-client.js",
-                            "!./*typings.json",
-                            "!./client/**",
-                            "!./typings/**",
-                            "!./node_modules/**"
+                            './config/**',
+                            './package.json',
+                            './web.config',
+                            './www.js'
                         ],
-                        dest: "./build"
+                        dest: './build'
                     }
                 ]
             }
@@ -28,58 +29,52 @@ module.exports = function (grunt) {
             app: {
                 files: [{
                     src: [
-                        "./**/*.ts",
-                        "!.baseDir.ts",
-                        "!./client/**",
-                        "!./typings/**",
-                        "!./node_modules/**"
+                        './models/**/*.ts',
+                        './routes/**/*.ts',
+                        './test/**/*.ts',
+                        './app.ts'
                     ],
-                    dest: "./build"
+                    dest: './build'
                 }],
                 options: {
                     experimentalDecorators: true,
-                    module: "commonjs",
-                    target: "es5",
+                    module: 'commonjs',
+                    target: 'es5',
                     sourceMap: false
                 }
             }
         },
         clean: {
-            build: ["./build/**"]
+            build: ['./build/**']
         },
         watch: {
             ts: {
                 files: [
-                    "./**/*.ts"
+                    './**/*.ts',
                 ],
-                tasks: ["ts"]
+                tasks: ['ts']
             }
         },
         mochaTest: {
             test: {
                 options: {
-                    reporter: "spec"
+                    reporter: 'spec',
+                    clearRequireCache: true
                 }
             },
-            src: ["./build/test/**/*.js"]
+            src: ['./build/test/**/*.js']
         }
     });
 
-    grunt.loadNpmTasks("grunt-mocha-test")
-    grunt.loadNpmTasks("grunt-contrib-copy");
-    grunt.loadNpmTasks("grunt-contrib-watch");
-    grunt.loadNpmTasks("grunt-contrib-clean");
-    grunt.loadNpmTasks("grunt-ts");
-
-    grunt.registerTask("default", [
-        "clean",
-        "copy",
-        "ts"
+    grunt.registerTask('default', [
+        'clean',
+        'copy',
+        'ts'
     ]);
 
-    grunt.registerTask("test", [
-        "default",
-        "mochaTest"
+    grunt.registerTask('test', [
+        'default',
+        'mochaTest'
     ]);
 
 };

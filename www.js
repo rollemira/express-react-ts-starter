@@ -95,7 +95,8 @@ function onListening() {
         ? 'pipe ' + addr
         : 'port ' + addr.port;
     debug('Listening on ' + bind);
-    console.log('Listening on ' + bind);
+    if (config.get('server.development'))
+        console.log('Listening on ' + bind);
 }
 
 module.exports = server;
