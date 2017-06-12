@@ -3,7 +3,7 @@ import {IPersistedModel} from "./presisted-model";
 
 const Schema = mongoose.Schema;
 const TodoSchema = new Schema({
-    title: {type: String},
+    title: {type: String, required: true},
     done: {type: Boolean, default: false}
 });
 

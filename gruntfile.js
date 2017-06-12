@@ -32,6 +32,7 @@ module.exports = function (grunt) {
                         './models/**/*.ts',
                         './routes/**/*.ts',
                         './test/**/*.ts',
+                        './utils/**/*.ts',
                         './app.ts'
                     ],
                     dest: './build'
