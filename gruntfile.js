@@ -39,6 +39,7 @@ module.exports = function (grunt) {
                     dest: './build'
                 }],
                 options: {
+                    rootDir: './',
                     experimentalDecorators: true,
                     module: 'commonjs',
                     target: 'es5',
