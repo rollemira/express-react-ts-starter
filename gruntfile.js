@@ -5,6 +5,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-ts');
+    grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-mocha-test');
 
     grunt.initConfig({
@@ -51,9 +52,18 @@ module.exports = function (grunt) {
         watch: {
             ts: {
                 files: [
-                    './**/*.ts',
+                    './models/**/*.ts',
+                    './routes/**/*.ts',
+                    './test/**/*.ts',
+                    './utils/**/*.ts',
+                    './app.ts'
                 ],
-                tasks: ['ts']
+                tasks: ['test']
+            }
+        },
+        env: {
+            test: {
+                NODE_ENV: 'testing'
             }
         },
         mochaTest: {
@@ -74,6 +84,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('test', [
+        'env:test',
         'default',
         'mochaTest'
     ]);
