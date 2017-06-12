@@ -5,7 +5,7 @@
   "main": "app.js",
   "private": true,
   "scripts": {
-    "test": "set NODE_ENV=testing&&grunt test",
+    "test": "grunt test",
     "build": "grunt&&cd client&&node scripts/build.js",
     "start": "concurrently \"yarn run server\" \"yarn run client\"",
     "server": "nodemon ./www.js",
